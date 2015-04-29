@@ -1,3 +1,5 @@
+Spittalpond
+===========
 <!-- The closest Bermuda's got to an Oasis! -->
 
 What is it?
@@ -48,33 +50,36 @@ examples.
 Potential Patches
 -----------------
 
-As of Oasis version R1.3, the Oasis Django server will need to be patcehd so
-that Spittalpond will run correctly. Pathches will be placed in the
+As of Oasis version R1.3, the Oasis Django server will need to be patched so
+that Spittalpond will run correctly. Patches will be placed in the
 `spittalpond/data` directory. You must apply all of the patches as so:
 
-    1. Move the patches onto the Oasis Django server into the `/var/www/django/`
-       directory. (i.e use WinSCP to do this.)
-    2. Apply the patches one by one with the standard unix [patch] command on
-       the Oasis Django server:
-       ```sh
-       $ cd /var/www/django
-       $ patch -p1 < file_upload.patch
-       (Stripping trailing CRs from patch.)
-       patching file oasis/app/views.py
-       Hunk #1 succeeded at 8069 (offset -1274 lines).
-       ```
-       As you can see above, the output succeeded for hunk #3. If it happens
-       to fail, you are probably not patching the correct server version.
+1. Move the patches onto the Oasis Django server into the `/var/www/django/`
+   directory. (i.e use WinSCP to do this.)
+2. Apply the patches one by one with the standard Unix [patch] command on
+   the Oasis Django server:
 
-       Note that `file_upload.patch` should be replaced with whatever patch
-       you need to apply.
-    3. You will also need to restart the Apache server on the Oasis Django
-       server: Run the following command:
-       ```sh
-       $ service apache2 restart
-       ```
+   ```sh
+   $ cd /var/www/django
+   $ patch -p1 < file_upload.patch
+   (Stripping trailing CRs from patch.)
+   patching file oasis/app/views.py
+   Hunk #1 succeeded at 8069 (offset -1274 lines).
+   ```
 
-You should now be able to succesfully run Spittalpond!
+   As you can see above, the output succeeded for hunk #3. If it happens
+   to fail, you are probably not patching the correct server version.
+
+   Note that `file_upload.patch` should be replaced with whatever patch
+   you need to apply.
+3. You will also need to restart the Apache server on the Oasis Django
+   server: Run the following command:
+
+   ```sh
+   $ service apache2 restart
+   ```
+
+You should now be able to successfully run Spittalpond!
 
 Contribute
 ----------
