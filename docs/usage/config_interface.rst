@@ -91,8 +91,8 @@ system_config mandatory  Value of the Oasis back-end database to
                          be used for execution.
 log_file      optional   Name of log file.
 log_level     optional   Set the logging file output level.
-                         Can be specified as either an integer of string. See `Python
-                         logging`_ for more details.
+                         Can be specified as either an integer of string. See
+                         `Python logging`_ for more details.
 ============= ========== =============================
 
 |
@@ -101,7 +101,9 @@ log_level     optional   Set the logging file output level.
 
 **login**
 
-Key-value pairs in Login are:
+This section defines Oasis Django server specific data needed to connect to the
+server.
+Key-value pairs in the login section are:
 
 ========== ========== =============================
 Key        Necessary? Description of value.
@@ -116,8 +118,8 @@ password   mandatory  Password for that respective user.
 
 **model**
 
-The model section defines essential details of the model to be created. Key-value pairs
-in Model section are:
+The model section defines essential details of the model to be created.
+Key-value pairs in the model section are:
 
 ============= ========== =============================
 Key           Necessary? Description of value.
@@ -142,7 +144,8 @@ to load models into Oasis:
 - model.version.vuln
 - model.dict.damagebin
 
-Each of the above model sub-sections have two key-value pairs:
+Each of the above model sub-sections are used to upload our CSV model data files
+onto the Django server. Each sub-section has two key-value pairs:
 
 ================== ========== =============================
 Key                Necessary? Description of value.
@@ -162,7 +165,7 @@ module_supplier_id mandatory  An Oasis module supplier id.
 
 The exposure section defines details of the exposure instance to be created.
 
-Key-value pairs in exposure section are:
+Key-value pairs in the exposure section are:
 
 ============= ========== =============================
 Key           Necessary? Description of value.
@@ -182,7 +185,8 @@ There are three "file upload" sub-sections in the exposure section:
 - exposure.version.exposure
 - exposure.version.correlation
 
-Again, similar to the model section, all the above sub-sections have two key-value pairs:
+Again, similar to the model section, all the above sub-sections have two
+key-value pairs:
 
 ================== ========== =============================
 Key                Necessary? Description of value.
@@ -206,7 +210,8 @@ been uploaded. There are four key-value pairs in this section:
 ========== ========== =============================
 Key        Necessary? Description of value.
 ========== ========== =============================
-name       mandatory  A user-friendly name of the Benchmark instance to be created.
+name       mandatory  A user-friendly name of the Benchmark instance to be
+                      created.
 chunk_size mandatory
 min_chunk  mandatory
 max_chunk  mandatory
@@ -242,7 +247,8 @@ section:
 ================== ========== =============================
 Key                Necessary? Description of value.
 ================== ========== =============================
-name               mandatory  The name of the Publish GUL instance to be created.
+name               mandatory  The name of the Publish GUL instance to be
+                              created.
 filename           mandatory  The name of the file in which the GUL results will
                               be published.
 module_supplier_id mandatory  An Oasis module supplier id.
