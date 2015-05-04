@@ -72,6 +72,10 @@ the TOML file. All sections defined in the configuration file will be run.
 
 Following is a brief description of each section in example.toml:
 
+|
+
+-------------------------------------------------------------------------------
+
 **meta**
 
 The meta section defines Spittalpond data and initializations.
@@ -91,6 +95,10 @@ log_level     optional   Set the logging file output level.
                          logging`_ for more details.
 ============= ========== =============================
 
+|
+
+-------------------------------------------------------------------------------
+
 **login**
 
 Key-value pairs in Login are:
@@ -102,6 +110,9 @@ user       mandatory  User name on the Oasis Django server.
 password   mandatory  Password for that respective user.
 ========== ========== =============================
 
+|
+
+-------------------------------------------------------------------------------
 
 **model**
 
@@ -143,6 +154,10 @@ module_supplier_id mandatory  An Oasis module supplier id.
 .. todo:: Give a link to a longer discription to what an Oasis module supplier
     is.
 
+|
+
+-------------------------------------------------------------------------------
+
 **exposure**
 
 The exposure section defines details of the exposure instance to be created.
@@ -179,6 +194,10 @@ module_supplier_id mandatory  An Oasis module supplier id.
 .. todo:: Give a link to a longer discription to what an Oasis module supplier
     is.
 
+|
+
+-------------------------------------------------------------------------------
+
 **benchmark**
 
 The benchmark section runs the Benchmark in Oasis after all the input files have
@@ -195,6 +214,10 @@ max_chunk  mandatory
 
 .. todo:: Fill out the empty cells in the benchmark table.
 
+|
+
+-------------------------------------------------------------------------------
+
 **gul**
 
 The gul section runs the GUL tasks in Oasis once the Benchmark section has been
@@ -205,6 +228,10 @@ Key        Necessary? Description of value.
 ========== ========== =============================
 name       mandatory  A user-friendly name of the GUL instance to be created.
 ========== ========== =============================
+
+|
+
+-------------------------------------------------------------------------------
 
 **pubgul**
 
@@ -280,4 +307,3 @@ References
 .. _here: https://github.com/toml-lang/toml/blob/master/README.md 
 .. _example.toml: https://github.com/beckettsimmons/spittalpond/blob/develop/examples/example.toml
 .. _Python logging: https://docs.python.org/2/library/logging.html#logging-levels
-
