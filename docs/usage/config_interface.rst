@@ -250,7 +250,9 @@ Key                Necessary? Description of value.
 name               mandatory  The name of the Publish GUL instance to be
                               created.
 filename           mandatory  The name of the file in which the GUL results will
-                              be published.
+                              be saved in on the Django server.
+output_filepath    mandatory  The path of the file in which the GUL results will
+                              be saved on your local machine.
 module_supplier_id mandatory  An Oasis module supplier id.
 ================== ========== =============================
 

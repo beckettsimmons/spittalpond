@@ -100,6 +100,8 @@ def verify_config(config):
             raise Exception(quick_msg('name'))
         if 'filename' not in config['pubgul'].keys():
             raise Exception(quick_msg('filename'))
+        if 'output_filepath' not in config['pubgul'].keys():
+            raise Exception(quick_msg('output_filepath'))
         if 'module_supplier_id' not in config['pubgul'].keys():
             raise Exception(quick_msg('module_supplier_id'))
 
@@ -178,8 +180,8 @@ def runner(config_file):
 
     # If the config verifies we can assume that it has a legit login section.
     spit = spittalpond.SpittalPond(
-        base_url=config['meta']['url'],
-        pub_user=config['login']['user'],
+        config['meta']['url'],
+        config['login']['user'],
         log_file=config['meta']['log_file'],
         log_level=config['meta']['log_level'],
     )
@@ -212,10 +214,15 @@ def runner(config_file):
     if 'pubgul' in config.keys():
         # TODO: We shouldn't have to log in twice. Instead share cookies.
         spit.run.do_login(config['login']['password'])
-        spit.run.get_gul_data(
+        response = spit.run.get_gul_data(
             config['pubgul']['name'],
             config['pubgul']['filename'],
             config['pubgul']['module_supplier_id']
+        )
+        with open(config['pubgul']['output_filepath'], 'wb') as output_file:
+            output_file.write(response.content)
+        print "Saved Published GUL output to {filepath}.".format(
+            filepath=config['pubgul']['output_filepath']
         )
     return spit
 
