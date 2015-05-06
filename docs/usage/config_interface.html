@@ -1,0 +1,573 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Config Interface Usage &mdash; spitttalpond 0.1.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="spitttalpond 0.1.1 documentation" href="../index.html" />
+    <link rel="up" title="Typical Usage" href="index.html" />
+    <link rel="next" title="Implementation Examples" href="../examples/index.html" />
+    <link rel="prev" title="Typical Usage" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../examples/index.html" title="Implementation Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Typical Usage"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">spitttalpond 0.1.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Typical Usage</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="config-interface-usage">
+<h1>Config Interface Usage<a class="headerlink" href="#config-interface-usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The Spittalpond config interface was created to automatically, quickly, and
+consistently call the Oasis Django API calls by parsing a pre-written
+configuration file.</p>
+<p>The Oasis Django API is very flexible and has over 300 different calls that can
+be made and each call must be made in a specific order. This makes running
+Oasis models and generating output data rather tedious and easy to call
+webservices in the incorrect order.</p>
+<p>Spittalpond begins to address this issues by grouping API calls into logical
+chunks. Though this still may mean that you have to <strong>manually</strong> make, say, ten
+or so Spittalpond calls instead.</p>
+<p>This is why Spittalpond goes another step further and has a config interface to
+make running Oasis quick and easy. This means that all you need to do is write
+a configuration file once and then be able to run Oasis with just one Python
+command! Great, right?!</p>
+</div>
+<div class="section" id="what-is-toml">
+<h2>What is TOML?<a class="headerlink" href="#what-is-toml" title="Permalink to this headline">¶</a></h2>
+<p>TOML stands for Tom&#8217;s Obviously Minimal Language.
+The TOML data format is much like the classic <cite>.ini</cite> format though it adds more
+features and functionality, (for example, nested sections and better lists)</p>
+<p>TOML mainly uses basic sections, and key-value pairs to define and structure
+data and is very easy to use and understand. For those of us familiar with
+JSON, we can think of TOML as just gloried human readable JSON.</p>
+<p>For example, this TOML:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">person</span><span class="p">]</span>
+<span class="n">first_name</span> <span class="o">=</span> <span class="s">&quot;John&quot;</span>
+<span class="n">last_name</span> <span class="o">=</span> <span class="s">&quot;Doe&quot;</span>
+<span class="n">hobbies</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;walking&quot;</span><span class="p">,</span> <span class="s">&quot;skipping&quot;</span><span class="p">,</span> <span class="s">&quot;jumping&quot;</span><span class="p">]</span>
+<span class="n">alive</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
+</div>
+<p>Is the JSON equivalent of:</p>
+<div class="highlight-python"><div class="highlight"><pre>{&quot;person&quot;:
+    {
+        &quot;first_name&quot;:&quot;John&quot;,
+        &quot;last_name&quot;:&quot;Doe&quot;,
+        &quot;hobbies&quot;:[&quot;walkin&quot;, &quot;skipping&quot;, &quot;jumping&quot;]
+        &quot;alive&quot;: true
+    }
+}
+</pre></div>
+</div>
+<p>A lot more readable and writable, right?
+To learn more about the TOML specification, click <a class="reference external" href="https://github.com/toml-lang/toml/blob/master/README.md">here</a>.</p>
+</div>
+<div class="section" id="spittalpond-config-specification">
+<h2>Spittalpond Config Specification<a class="headerlink" href="#spittalpond-config-specification" title="Permalink to this headline">¶</a></h2>
+<p>In order for TOML configuration files to be usable by Spittalpond their data
+structure must follow this specification.</p>
+<p>An file named <a class="reference external" href="https://github.com/beckettsimmons/spittalpond/blob/develop/examples/example.toml">example.toml</a> is provided as a reference example of how a
+Spittalpond configuration file should look. It also contains many useful
+comments and pro-tips. As we can see, this file is separated into different
+logical sections of the Oasis workflow defined in the <em>Oasis User Guide R1.2
+v1.0</em> <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
+<p>Essentially, each section conveniently runs many underlying Oasis webservices.
+Each section specified in the configuration file will be run based on key value
+pairs and sub-sections defined in it. The sections will be run in an order
+defined by Spittalpond. This means that we need not worry about the order in
+the TOML file. All sections defined in the configuration file will be run.</p>
+<p>Following is a brief description of each section in example.toml:</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<hr class="docutils" />
+<p><strong>meta</strong></p>
+<p>The meta section defines Spittalpond data and initializations.
+The key-value pairs in the meta section are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="13%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Necessary?</th>
+<th class="head">Description of value.</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>url</td>
+<td>mandatory</td>
+<td>The URL of the Django server. Be sure to prepend
+the protocol (i.e. <a class="reference external" href="http://">http://</a>) and append the port (i.e.
+:8000).</td>
+</tr>
+<tr class="row-odd"><td>system_config</td>
+<td>mandatory</td>
+<td>Value of the Oasis back-end database to
+be used for execution.</td>
+</tr>
+<tr class="row-even"><td>log_file</td>
+<td>optional</td>
+<td>Name of log file.</td>
+</tr>
+<tr class="row-odd"><td>log_level</td>
+<td>optional</td>
+<td>Set the logging file output level.
+Can be specified as either an integer of string. See
+<a class="reference external" href="https://docs.python.org/2/library/logging.html#logging-levels">Python logging</a> for more details.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<hr class="docutils" />
+<p><strong>login</strong></p>
+<p>This section defines Oasis Django server specific data needed to connect to the
+server.
+Key-value pairs in the login section are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="18%" />
+<col width="65%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Necessary?</th>
+<th class="head">Description of value.</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>user</td>
+<td>mandatory</td>
+<td>User name on the Oasis Django server.</td>
+</tr>
+<tr class="row-odd"><td>password</td>
+<td>mandatory</td>
+<td>Password for that respective user.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<hr class="docutils" />
+<p><strong>model</strong></p>
+<p>The model section defines essential details of the model to be created.
+Key-value pairs in the model section are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="13%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Necessary?</th>
+<th class="head">Description of value.</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>name</td>
+<td>mandatory</td>
+<td>A user-friendly name to label our model once created.</td>
+</tr>
+<tr class="row-odd"><td>key</td>
+<td>mandatory</td>
+<td>The license key for the model.</td>
+</tr>
+<tr class="row-even"><td>do_timestamps</td>
+<td>optional</td>
+<td>Default Django server file permissions will not allow
+files previously uploaded to be overwritten. In order
+to avoid this problem we can optionally automatically
+prefix each file with the current time stamp. A
+boolean; <cite>true</cite> or <cite>false</cite>.</td>
+</tr>
+</tbody>
+</table>
+<p>Apart from these key-value pairs there are seven &#8220;file upload&#8221; sub-sections used
+to load models into Oasis:</p>
+<ul class="simple">
+<li>model.dict.areaperil</li>
+<li>model.dict.event</li>
+<li>model.dict.vuln</li>
+<li>model.dict.hazardintensitybin</li>
+<li>model.version.hazfp</li>
+<li>model.version.vuln</li>
+<li>model.dict.damagebin</li>
+</ul>
+<p>Each of the above model sub-sections are used to upload our CSV model data files
+onto the Django server. Each sub-section has two key-value pairs:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="14%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Necessary?</th>
+<th class="head">Description of value.</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>filename</td>
+<td>mandatory</td>
+<td>The name of the input file to be uploaded.</td>
+</tr>
+<tr class="row-odd"><td>module_supplier_id</td>
+<td>mandatory</td>
+<td>An Oasis module supplier id.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<hr class="docutils" />
+<p><strong>exposure</strong></p>
+<p>The exposure section defines details of the exposure instance to be created.</p>
+<p>Key-value pairs in the exposure section are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="13%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Necessary?</th>
+<th class="head">Description of value.</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>name</td>
+<td>mandatory</td>
+<td>A user-friendly name to label our model once created.</td>
+</tr>
+<tr class="row-odd"><td>key</td>
+<td>mandatory</td>
+<td>The license key for the model.</td>
+</tr>
+<tr class="row-even"><td>do_timestamps</td>
+<td>optional</td>
+<td>Default Django server file permissions will not allow
+files previously uploaded to be overwritten. In order
+to avoid this problem we can optionally automatically
+prefix each file with the current time stamp. A
+boolean; <cite>true</cite> or <cite>false</cite>.</td>
+</tr>
+</tbody>
+</table>
+<p>There are three &#8220;file upload&#8221; sub-sections in the exposure section:</p>
+<ul class="simple">
+<li>exposure.dict.exposure</li>
+<li>exposure.version.exposure</li>
+<li>exposure.version.correlation</li>
+</ul>
+<p>Again, similar to the model section, all the above sub-sections have two
+key-value pairs:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="14%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Necessary?</th>
+<th class="head">Description of value.</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>filename</td>
+<td>mandatory</td>
+<td>The name of the input file to be uploaded.</td>
+</tr>
+<tr class="row-odd"><td>module_supplier_id</td>
+<td>mandatory</td>
+<td>An Oasis module supplier id.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<hr class="docutils" />
+<p><strong>benchmark</strong></p>
+<p>The benchmark section runs the Benchmark in Oasis after all the input files have
+been uploaded. There are four key-value pairs in this section:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="14%" />
+<col width="72%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Necessary?</th>
+<th class="head">Description of value.</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>name</td>
+<td>mandatory</td>
+<td>A user-friendly name of the Benchmark instance to be
+created.</td>
+</tr>
+<tr class="row-odd"><td>chunk_size</td>
+<td>mandatory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>min_chunk</td>
+<td>mandatory</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>max_chunk</td>
+<td>mandatory</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<hr class="docutils" />
+<p><strong>gul</strong></p>
+<p>The gul section runs the GUL tasks in Oasis once the Benchmark section has been
+successfully executed. There is only one key-value pair in this section:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="13%" />
+<col width="73%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Necessary?</th>
+<th class="head">Description of value.</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>name</td>
+<td>mandatory</td>
+<td>A user-friendly name of the GUL instance to be created.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<hr class="docutils" />
+<p><strong>pubgul</strong></p>
+<p>The pubgul section runs once GUL tasks have been successfully executed.
+This section essentially publishes the GUL results. Key-value pairs in this
+section:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="13%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key</th>
+<th class="head">Necessary?</th>
+<th class="head">Description of value.</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>name</td>
+<td>mandatory</td>
+<td>The name of the Publish GUL instance to be
+created.</td>
+</tr>
+<tr class="row-odd"><td>filename</td>
+<td>mandatory</td>
+<td>The name of the file in which the GUL results will
+be saved in on the Django server.</td>
+</tr>
+<tr class="row-even"><td>output_filepath</td>
+<td>mandatory</td>
+<td>The path of the file in which the GUL results will
+be saved on your local machine.</td>
+</tr>
+<tr class="row-odd"><td>module_supplier_id</td>
+<td>mandatory</td>
+<td>An Oasis module supplier id.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">As of version 0.2.0 of Spittalpond does not actually save a Publish
+GUL. It only will dump the results into the log file.</p>
+</div>
+</div>
+<div class="section" id="example-config-interface-usage">
+<h2>Example Config Interface Usage<a class="headerlink" href="#example-config-interface-usage" title="Permalink to this headline">¶</a></h2>
+<p>We can run Spittalpond&#8217;s config interface with the following commands:</p>
+<div class="code sh highlight-python"><div class="highlight"><pre>$ cd path/to/spittalpond/
+$ python ./spittalpond/config_interface.py ../examples/example.toml
+</pre></div>
+</div>
+<p>The Spittalpond can also be used interactively after running the config
+interface by add the <cite>-i</cite> flag to the <cite>python</cite> command. This allows us to
+interrogate the Spittalpond class after it&#8217;s internal <cite>data_dict</cite> has been
+populated.
+.. todo: Link to the spittalpond class above
+In the example interactive Python REPL session below we survey the populated
+<cite>Spittalpond.run.data_dict</cite> variable and use data seen to re-create our Ground
+Up Losses in Oasis.</p>
+<div class="code sh highlight-python"><div class="highlight"><pre>$ python -i .\config_interface.py .\example.toml
+You are logged into Mid-tier
+Finished creating model strutures.
+You are logged into Mid-tier
+Finished creating exposure structures.
+Finished benchmark creation.
+You are logged into Mid-tier
+Created GUL data
+You are logged into Mid-tier
+&gt;&gt;&gt; spit = spittalpond_instance
+&gt;&gt;&gt; spit.run.data_dict
+{&#39;version_random&#39;: {&#39;job_id&#39;: 63, &#39;taskId&#39;: 2}, &#39;kernel_pubgul&#39;: {&#39;download_id_2&#39;: u&#39;7&#39;, &#39;download_id&#39;: 182, &#39;job_id&#39;: 7
+0, &#39;taskId&#39;: u&#39;7&#39;}, &#39;kernel_cdf&#39;: {&#39;job_id&#39;: 65, &#39;taskId&#39;: u&#39;7&#39;}, &#39;kernel_gul&#39;: {&#39;job_id&#39;: 67, &#39;taskId&#39;: u&#39;7&#39;}, &#39;kernel_
+cdfsamples&#39;: {&#39;job_id&#39;: 66, &#39;taskId&#39;: u&#39;7&#39;}, &#39;instance_random&#39;: {&#39;job_id&#39;: 64, &#39;taskId&#39;: u&#39;8&#39;}}
+&gt;&gt;&gt; spit.run.create_gul(&quot;example_gul&quot;, 7, 10)
+&lt;Response [200]&gt;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All sections in example.toml are mandatory for an initial run. With
+&#8220;initial run&#8221; meaning &#8220;unpoplated data_dict&#8221; But once the data_dict is
+populated, each section can be executed independently.</p>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Currently, that document is available to Oaiss members at &lt;oasislmf.org&gt;.
+See page 11 of the document.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Config Interface Usage</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#what-is-toml">What is TOML?</a></li>
+<li><a class="reference internal" href="#spittalpond-config-specification">Spittalpond Config Specification</a></li>
+<li><a class="reference internal" href="#example-config-interface-usage">Example Config Interface Usage</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Typical Usage</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../examples/index.html"
+                        title="next chapter">Implementation Examples</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/usage/config_interface.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../examples/index.html" title="Implementation Examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Typical Usage"
+             >previous</a> |</li>
+        <li><a href="../index.html">spitttalpond 0.1.1 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Typical Usage</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Beckett Simmons.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
