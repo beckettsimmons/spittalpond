@@ -18,6 +18,12 @@ class SpittalPond():
             base_url (str): The URL of the Django server. Be sure to prepend
                 the protocol (i.e. http://) and append the port (i.e. :8000).
             user (str): Username to use on the server.
+            log_file (str, optional): file to write Spittalpond internal logging
+                to. If unspecified logging will be disabled.
+            log_level (str|int, optional): set the logging file output level.
+                Can be specified as either an integer of string. See Python
+                logging for more details:
+                <https://docs.python.org/2/library/logging.html#logging-levels>
         """
 
         logger = logging.getLogger('spittalpond')
