@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>spittalpond.spittalbase &mdash; spitttalpond 0.0.2 documentation</title>
+    <title>spittalpond.spittalbase &mdash; spitttalpond 0.1.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.0.2',
+        VERSION:     '0.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="spitttalpond 0.0.2 documentation" href="../../index.html" />
+    <link rel="top" title="spitttalpond 0.1.1 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">spitttalpond 0.0.2 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">spitttalpond 0.1.1 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -59,37 +59,42 @@
 <div class="viewcode-block" id="SpittalBase"><a class="viewcode-back" href="../../code_docs/spittalbase.html#spittalpond.spittalbase.SpittalBase">[docs]</a><span class="k">class</span> <span class="nc">SpittalBase</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot; A base class that contains generic spittal functions</span>
 
-<span class="sd">    Classes such as SpittalModel and SpittalExposures will import this one.</span>
+<span class="sd">    Classes such as SpittalModel and SpittalExposure will import this one.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 
-    <span class="c"># TODO: Maybe have individual type for each sub class?</span>
+    <span class="c"># TODO: Maybe have individual type definition for each sub class?</span>
     <span class="c"># Each subclass only really needs to know about itself.</span>
-    <span class="c"># TODO: fix the naming of instance here.</span>
-    <span class="c"># The instance suffix shoudl come first.</span>
-    <span class="c"># Also, Should be version_exposure _not_ exposure_main.</span>
-    <span class="c"># And correlations main it&#39;s looking pretty.</span>
     <span class="n">types</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sd">&quot;&quot;&quot; This dictionary defines Oasis &quot;types&quot; that we use internally.</span>
+
+<span class="sd">        This creates a standard that is both easier to type and is not</span>
+<span class="sd">        dependant on the Oasis API. Mainly these types are used as keys in the</span>
+<span class="sd">        data_dict, but also the values should be used for creating URL API</span>
+<span class="sd">        call strings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="c"># correlations is special, it&#39;s just a file, that&#39;s all!</span>
-        <span class="s">&quot;correlations_main&quot;</span><span class="p">:</span><span class="bp">None</span><span class="p">,</span>
-        <span class="s">&quot;dict_areaperil&quot;</span><span class="p">:</span><span class="s">&quot;AreaPerilDict&quot;</span><span class="p">,</span>
-        <span class="s">&quot;dict_damagebin&quot;</span><span class="p">:</span><span class="s">&quot;DamageBinDict&quot;</span><span class="p">,</span>
-        <span class="s">&quot;dict_event&quot;</span><span class="p">:</span><span class="s">&quot;EventDict&quot;</span><span class="p">,</span>
-        <span class="s">&quot;dict_exposure&quot;</span><span class="p">:</span><span class="s">&quot;ExposureDict&quot;</span><span class="p">,</span>
-        <span class="s">&quot;dict_hazardintensitybin&quot;</span><span class="p">:</span><span class="s">&quot;HazardIntensityBinDict&quot;</span><span class="p">,</span>
-        <span class="s">&quot;dict_vuln&quot;</span><span class="p">:</span><span class="s">&quot;VulnDict&quot;</span><span class="p">,</span>
-        <span class="s">&quot;dict_random&quot;</span><span class="p">:</span><span class="s">&quot;RandomNumberTable&quot;</span><span class="p">,</span>
-        <span class="s">&quot;exposures_instance&quot;</span><span class="p">:</span><span class="s">&quot;ExposureInstance&quot;</span><span class="p">,</span>
-        <span class="s">&quot;exposures_main&quot;</span><span class="p">:</span><span class="s">&quot;ExposureVersion&quot;</span><span class="p">,</span>
-        <span class="s">&quot;version_hazfp&quot;</span><span class="p">:</span><span class="s">&quot;HazFPVersion&quot;</span><span class="p">,</span>
-        <span class="s">&quot;version_vuln&quot;</span><span class="p">:</span><span class="s">&quot;VulnVersion&quot;</span><span class="p">,</span>
+        <span class="s">&quot;version_correlation&quot;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="s">&quot;dict_areaperil&quot;</span><span class="p">:</span> <span class="s">&quot;AreaPerilDict&quot;</span><span class="p">,</span>
+        <span class="s">&quot;dict_damagebin&quot;</span><span class="p">:</span> <span class="s">&quot;DamageBinDict&quot;</span><span class="p">,</span>
+        <span class="s">&quot;dict_event&quot;</span><span class="p">:</span> <span class="s">&quot;EventDict&quot;</span><span class="p">,</span>
+        <span class="s">&quot;dict_exposure&quot;</span><span class="p">:</span> <span class="s">&quot;ExposureDict&quot;</span><span class="p">,</span>
+        <span class="s">&quot;dict_hazardintensitybin&quot;</span><span class="p">:</span> <span class="s">&quot;HazardIntensityBinDict&quot;</span><span class="p">,</span>
+        <span class="s">&quot;dict_vuln&quot;</span><span class="p">:</span> <span class="s">&quot;VulnDict&quot;</span><span class="p">,</span>
+        <span class="s">&quot;dict_random&quot;</span><span class="p">:</span> <span class="s">&quot;RandomNumberTable&quot;</span><span class="p">,</span>
+        <span class="s">&quot;version_exposure&quot;</span><span class="p">:</span> <span class="s">&quot;ExposureVersion&quot;</span><span class="p">,</span>
+        <span class="s">&quot;version_hazfp&quot;</span><span class="p">:</span> <span class="s">&quot;HazFPVersion&quot;</span><span class="p">,</span>
+        <span class="s">&quot;version_vuln&quot;</span><span class="p">:</span> <span class="s">&quot;VulnVersion&quot;</span><span class="p">,</span>
         <span class="s">&quot;version_random&quot;</span><span class="p">:</span> <span class="s">&quot;RandomNumberTableVersion&quot;</span><span class="p">,</span>
-        <span class="s">&quot;vuln_instance&quot;</span><span class="p">:</span><span class="s">&quot;VulnInstance&quot;</span><span class="p">,</span>
-        <span class="s">&quot;hazfp_instance&quot;</span><span class="p">:</span><span class="s">&quot;HazFPInstance&quot;</span><span class="p">,</span>
-        <span class="s">&quot;random_instance&quot;</span><span class="p">:</span><span class="s">&quot;RandomNumberTableInstance&quot;</span><span class="p">,</span>
-        <span class="s">&quot;kernel_cdf&quot;</span><span class="p">:</span><span class="s">&quot;CDF&quot;</span><span class="p">,</span>
-        <span class="s">&quot;kernel_cdfsamples&quot;</span><span class="p">:</span><span class="s">&quot;CDFSamples&quot;</span><span class="p">,</span>
-        <span class="s">&quot;kernel_gul&quot;</span><span class="p">:</span><span class="s">&quot;GUL&quot;</span><span class="p">,</span>
+        <span class="s">&quot;instance_exposure&quot;</span><span class="p">:</span> <span class="s">&quot;ExposureInstance&quot;</span><span class="p">,</span>
+        <span class="s">&quot;instance_vuln&quot;</span><span class="p">:</span> <span class="s">&quot;VulnInstance&quot;</span><span class="p">,</span>
+        <span class="s">&quot;instance_hazfp&quot;</span><span class="p">:</span> <span class="s">&quot;HazFPInstance&quot;</span><span class="p">,</span>
+        <span class="s">&quot;instance_random&quot;</span><span class="p">:</span> <span class="s">&quot;RandomNumberTableInstance&quot;</span><span class="p">,</span>
+        <span class="s">&quot;kernel_benchmark&quot;</span><span class="p">:</span> <span class="s">&quot;Benchmark&quot;</span><span class="p">,</span>
+        <span class="s">&quot;kernel_cdf&quot;</span><span class="p">:</span> <span class="s">&quot;CDF&quot;</span><span class="p">,</span>
+        <span class="s">&quot;kernel_cdfsamples&quot;</span><span class="p">:</span> <span class="s">&quot;CDFSamples&quot;</span><span class="p">,</span>
+        <span class="s">&quot;kernel_gul&quot;</span><span class="p">:</span> <span class="s">&quot;GUL&quot;</span><span class="p">,</span>
         <span class="s">&quot;kernel_pubgul&quot;</span><span class="p">:</span> <span class="s">&quot;PubGUL&quot;</span><span class="p">,</span>
     <span class="p">}</span>
 
@@ -324,7 +329,7 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">response</span>
 
-</div>
+    <span class="c"># TODO: Phase out this method. we should use config ui instead.</span></div>
 <div class="viewcode-block" id="SpittalBase.upload_directory"><a class="viewcode-back" href="../../code_docs/spittalbase.html#spittalpond.spittalbase.SpittalBase.upload_directory">[docs]</a>    <span class="k">def</span> <span class="nf">upload_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory_path</span><span class="p">,</span> <span class="n">do_timestamps</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">pkey</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Upload an entire directory of files.</span>
 
@@ -417,6 +422,62 @@
             <span class="p">}</span>
 
         <span class="k">print</span><span class="p">(</span><span class="s">&quot;Uploaded directory&quot;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="SpittalBase.prepare_file"><a class="viewcode-back" href="../../code_docs/spittalbase.html#spittalpond.spittalbase.SpittalBase.prepare_file">[docs]</a>    <span class="k">def</span> <span class="nf">prepare_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_name</span><span class="p">,</span> <span class="n">pathname</span><span class="p">,</span> <span class="n">module_supplier_id</span><span class="p">,</span>
+                     <span class="n">do_timestamps</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Combines a few webservices for upload a file.</span>
+
+<span class="sd">        &quot;Prepare&quot; is a term genrally meaning:</span>
+<span class="sd">            - Creating the file upload and download id&#39;s.</span>
+<span class="sd">            - And then actually uploading the file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data_name (str): name from self.types dictionary.</span>
+<span class="sd">            pathname (str): path to file to prepare.</span>
+<span class="sd">            module_supplier_id (int): overall module supplier for uploading.</span>
+<span class="sd">            do_timestamps (bool): whether to prepend timestamps on upload.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">pathname</span><span class="p">)</span>
+        <span class="n">timestamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_timestamps</span><span class="p">()</span>
+        <span class="c"># Timestamp files if nessecary.</span>
+        <span class="k">if</span> <span class="n">do_timestamps</span><span class="p">:</span>
+            <span class="n">upload_filename</span> <span class="o">=</span> <span class="n">timestamp</span> <span class="o">+</span> <span class="n">filename</span>
+
+        <span class="c"># Create the file upload.</span>
+        <span class="n">up_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_file_upload</span><span class="p">(</span>
+            <span class="n">upload_filename</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pub_user</span><span class="p">,</span>
+            <span class="n">module_supplier_id</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">up_id</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span><span class="p">,</span>\
+            <span class="s">&quot;Bad upload ID response: Not an integer!&quot;</span>
+
+        <span class="c"># Create the file download.</span>
+        <span class="n">down_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_file_download</span><span class="p">(</span>
+            <span class="n">upload_filename</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pub_user</span><span class="p">,</span>
+            <span class="n">module_supplier_id</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">down_id</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span><span class="p">,</span>\
+            <span class="s">&quot;Bad download ID response: Not an integer!&quot;</span>
+
+        <span class="c"># Actually upload the file to the server.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span>
+            <span class="n">pathname</span><span class="p">,</span>
+            <span class="n">upload_filename</span>
+        <span class="p">)</span>
+
+        <span class="c"># Save the data for later use.</span>
+        <span class="c"># Update data_dict.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="n">data_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s">&#39;filepath&#39;</span><span class="p">:</span> <span class="n">pathname</span><span class="p">,</span>
+            <span class="s">&#39;upload_name&#39;</span><span class="p">:</span> <span class="n">upload_filename</span><span class="p">,</span>
+            <span class="s">&#39;upload_id&#39;</span><span class="p">:</span> <span class="n">up_id</span><span class="p">,</span>
+            <span class="s">&#39;download_id&#39;</span><span class="p">:</span> <span class="n">down_id</span><span class="p">,</span>
+            <span class="s">&#39;module_supplier_id&#39;</span><span class="p">:</span> <span class="n">module_supplier_id</span><span class="p">,</span>
+        <span class="p">}</span>
+
 
     <span class="c"># TODO: Appropriately name this method.</span></div>
 <div class="viewcode-block" id="SpittalBase.load_models"><a class="viewcode-back" href="../../code_docs/spittalbase.html#spittalpond.spittalbase.SpittalBase.load_models">[docs]</a>    <span class="k">def</span> <span class="nf">load_models</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -427,7 +488,7 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Loading {name} data&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">type_name</span><span class="p">,</span> <span class="n">type_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
             <span class="c"># An exclude for correlations. Isn&#39;t created nor has an ID.</span>
-            <span class="k">if</span> <span class="n">type_name</span> <span class="o">==</span> <span class="s">&quot;correlations_main&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">type_name</span> <span class="o">==</span> <span class="s">&quot;version_correlation&quot;</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="n">task_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_task</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">types</span><span class="p">[</span><span class="n">type_name</span><span class="p">],</span>
@@ -561,7 +622,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">spitttalpond 0.0.2 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">spitttalpond 0.1.1 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

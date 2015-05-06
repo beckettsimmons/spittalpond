@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>spittalpond.spittalrun &mdash; spitttalpond 0.0.2 documentation</title>
+    <title>spittalpond.spittalrun &mdash; spitttalpond 0.1.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.0.2',
+        VERSION:     '0.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="spitttalpond 0.0.2 documentation" href="../../index.html" />
+    <link rel="top" title="spitttalpond 0.1.1 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">spitttalpond 0.0.2 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">spitttalpond 0.1.1 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -236,7 +236,7 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Auto-creating random numbers.&quot;</span><span class="p">)</span>
 
         <span class="c"># Check if we need to create the data_dict keys.</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;version_random&quot;</span><span class="p">,</span> <span class="s">&quot;random_instance&quot;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;version_random&quot;</span><span class="p">,</span> <span class="s">&quot;instance_random&quot;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="c"># Below, 2 is the default version.</span>
@@ -252,11 +252,11 @@
             <span class="n">number_of_pages</span><span class="p">,</span>
             <span class="n">number_of_samples_per_page</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&quot;random_instance&quot;</span><span class="p">][</span><span class="s">&quot;taskId&quot;</span><span class="p">]</span> <span class="o">=</span>\
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&quot;instance_random&quot;</span><span class="p">][</span><span class="s">&quot;taskId&quot;</span><span class="p">]</span> <span class="o">=</span>\
             <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">instance_resp</span><span class="o">.</span><span class="n">content</span><span class="p">)[</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span>
 
         <span class="c"># Run both of the jobs in order.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">do_jobs</span><span class="p">([</span><span class="s">&quot;version_random&quot;</span><span class="p">,</span> <span class="s">&quot;random_instance&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_jobs</span><span class="p">([</span><span class="s">&quot;version_random&quot;</span><span class="p">,</span> <span class="s">&quot;instance_random&quot;</span><span class="p">])</span>
 
         <span class="k">return</span> <span class="bp">None</span>
 </div>
@@ -266,7 +266,7 @@
 <span class="sd">        Args:</span>
 <span class="sd">            gul_name (str): the user friendly name of the gul to create</span>
 <span class="sd">            benchmark_id (int): the id returned from create_benchmark().</span>
-<span class="sd">            exposure_instance_id (int): id returned from create_exposure_instance().</span>
+<span class="sd">            exposure_instance_id (int): id from create_exposure_instance().</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            HttpResponse: server&#39;s response.</span>
@@ -287,7 +287,7 @@
             <span class="n">gul_name</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;kernel_cdf&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">],</span>
             <span class="mi">10</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;random_instance&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;instance_random&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Create cdf_samples response: &#39;</span> <span class="o">+</span> <span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 
@@ -424,7 +424,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">spitttalpond 0.0.2 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">spitttalpond 0.1.1 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

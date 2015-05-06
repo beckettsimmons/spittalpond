@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>spittalpond.spittalexposure &mdash; spitttalpond 0.0.2 documentation</title>
+    <title>spittalpond.spittalexposure &mdash; spitttalpond 0.1.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.0.2',
+        VERSION:     '0.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="spitttalpond 0.0.2 documentation" href="../../index.html" />
+    <link rel="top" title="spitttalpond 0.1.1 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">spitttalpond 0.0.2 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">spitttalpond 0.1.1 documentation</a> &raquo;</li>
           <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -206,33 +206,33 @@
         <span class="c"># so we do not need to loop through.</span>
         <span class="n">creation_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_exposure_version</span><span class="p">(</span>
             <span class="s">&quot;exposure_main&quot;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;exposures_main&#39;</span><span class="p">][</span><span class="s">&#39;module_supplier_id&#39;</span><span class="p">],</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;exposures_main&#39;</span><span class="p">][</span><span class="s">&#39;upload_id&#39;</span><span class="p">],</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;correlations_main&#39;</span><span class="p">][</span><span class="s">&#39;upload_id&#39;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;version_exposure&#39;</span><span class="p">][</span><span class="s">&#39;module_supplier_id&#39;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;version_exposure&#39;</span><span class="p">][</span><span class="s">&#39;upload_id&#39;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;version_correlation&#39;</span><span class="p">][</span><span class="s">&#39;upload_id&#39;</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Create exposure_verion response: &#39;</span> <span class="o">+</span> <span class="n">creation_response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;exposures_main&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;version_exposure&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
             <span class="n">creation_response</span><span class="o">.</span><span class="n">content</span>
         <span class="p">)[</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span>
 
         <span class="c"># Create the exposure instance.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;exposures_instance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;instance_exposure&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">creation_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_exposure_instance</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pub_user</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;exposures_main&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;version_exposure&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">],</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;dict_exposure&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">],</span>
             <span class="n">model_data_dict</span><span class="p">[</span><span class="s">&#39;dict_areaperil&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">],</span>
             <span class="n">model_data_dict</span><span class="p">[</span><span class="s">&#39;dict_vuln&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Create exposure_instance response: &#39;</span> <span class="o">+</span> <span class="n">creation_response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;exposures_instance&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;instance_exposure&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
             <span class="n">creation_response</span><span class="o">.</span><span class="n">content</span>
         <span class="p">)[</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span>
 
         <span class="c"># Create the hazfp instance.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;hazfp_instance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;instance_hazfp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">creation_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_hazfp_instance</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pub_user</span><span class="p">,</span>
             <span class="n">model_data_dict</span><span class="p">[</span><span class="s">&#39;version_hazfp&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">],</span>
@@ -243,12 +243,12 @@
         <span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Create hazfp_verion response: &#39;</span> <span class="o">+</span> <span class="n">creation_response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;hazfp_instance&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;instance_hazfp&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
             <span class="n">creation_response</span><span class="o">.</span><span class="n">content</span>
         <span class="p">)[</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span>
 
         <span class="c"># Create vuln instance.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;vuln_instance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;instance_vuln&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">creation_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_vuln_instance</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pub_user</span><span class="p">,</span>
             <span class="n">model_data_dict</span><span class="p">[</span><span class="s">&#39;version_vuln&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">],</span>
@@ -257,9 +257,9 @@
             <span class="n">model_data_dict</span><span class="p">[</span><span class="s">&#39;dict_damagebin&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">],</span>
             <span class="s">&quot;ModelKey&quot;</span>
         <span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Create vuln_instance response: &#39;</span> <span class="o">+</span> <span class="n">creation_response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Create instance_vuln response: &#39;</span> <span class="o">+</span> <span class="n">creation_response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;vuln_instance&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;instance_vuln&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
             <span class="n">creation_response</span><span class="o">.</span><span class="n">content</span>
         <span class="p">)[</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span>
         <span class="k">print</span><span class="p">(</span><span class="s">&quot;Finished creating exposure structures.&quot;</span><span class="p">)</span>
@@ -281,14 +281,43 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="o">+</span>
             <span class="s">&quot;/oasis/createBenchmark/&quot;</span> <span class="o">+</span>
             <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span>
-            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;hazfp_instance&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span>
-            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;exposures_instance&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span>
-            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;vuln_instance&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span>
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;instance_hazfp&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span>
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;instance_exposure&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span>
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;instance_vuln&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span>
             <span class="nb">str</span><span class="p">(</span><span class="n">chunk_size</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span>
             <span class="nb">str</span><span class="p">(</span><span class="n">min_chunk</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span>
             <span class="nb">str</span><span class="p">(</span><span class="n">max_chunk</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">response</span></div></div>
+        <span class="k">return</span> <span class="n">response</span>
+</div>
+<div class="viewcode-block" id="SpittalExposure.create_benchmark_structure"><a class="viewcode-back" href="../../code_docs/spittalexposure.html#spittalpond.spittalexposure.SpittalExposure.create_benchmark_structure">[docs]</a>    <span class="k">def</span> <span class="nf">create_benchmark_structure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Adds the benchmark chunks to the backend database. &quot;&quot;&quot;</span>
+
+        <span class="n">create_resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_benchmark</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s">&#39;Create benchmark response: &#39;</span> <span class="o">+</span> <span class="n">create_resp</span><span class="o">.</span><span class="n">content</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="s">&#39;kernel_benchmark&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;kernel_benchmark&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;kernel_benchmark&#39;</span><span class="p">][</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span>
+            <span class="n">create_resp</span><span class="o">.</span><span class="n">content</span>
+        <span class="p">)[</span><span class="s">&#39;taskId&#39;</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_job</span><span class="p">(</span><span class="s">&#39;kernel_benchmark&#39;</span><span class="p">)</span>
+
+        <span class="k">print</span> <span class="s">&quot;Finished benchmark creation.&quot;</span>
+</div>
+    <span class="k">def</span> <span class="nf">exposure_do_jobs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_jobs</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="s">&#39;dict_exposure&#39;</span><span class="p">,</span>
+                <span class="s">&#39;version_exposure&#39;</span><span class="p">,</span>
+                <span class="s">&#39;instance_hazfp&#39;</span><span class="p">,</span>
+                <span class="s">&#39;instance_vuln&#39;</span><span class="p">,</span>
+                <span class="s">&#39;instance_exposure&#39;</span>
+            <span class="p">]</span>
+        <span class="p">)</span></div>
 </pre></div>
 
           </div>
@@ -322,7 +351,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">spitttalpond 0.0.2 documentation</a> &raquo;</li>
+        <li><a href="../../index.html">spitttalpond 0.1.1 documentation</a> &raquo;</li>
           <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

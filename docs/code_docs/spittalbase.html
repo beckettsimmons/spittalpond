@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Spittal Base &mdash; spitttalpond 0.0.2 documentation</title>
+    <title>Spittal Base &mdash; spitttalpond 0.1.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.0.2',
+        VERSION:     '0.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="spitttalpond 0.0.2 documentation" href="../index.html" />
+    <link rel="top" title="spitttalpond 0.1.1 documentation" href="../index.html" />
     <link rel="up" title="Code Documentation" href="index.html" />
     <link rel="next" title="Spittal Model" href="spittalmodel.html" />
     <link rel="prev" title="Spittalpond" href="spittalpond.html" /> 
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="spittalpond.html" title="Spittalpond"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">spitttalpond 0.0.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">spitttalpond 0.1.1 documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">Code Documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -60,7 +60,7 @@
 <dt id="spittalpond.spittalbase.SpittalBase">
 <em class="property">class </em><tt class="descclassname">spittalpond.spittalbase.</tt><tt class="descname">SpittalBase</tt><big>(</big><em>base_url</em>, <em>pub_user</em><big>)</big><a class="reference internal" href="../_modules/spittalpond/spittalbase.html#SpittalBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spittalpond.spittalbase.SpittalBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>A base class that contains generic spittal functions</p>
-<p>Classes such as SpittalModel and SpittalExposures will import this one.</p>
+<p>Classes such as SpittalModel and SpittalExposure will import this one.</p>
 <dl class="method">
 <dt id="spittalpond.spittalbase.SpittalBase.check_status">
 <tt class="descname">check_status</tt><big>(</big><em>job_id</em>, <em>config_id=1</em><big>)</big><a class="reference internal" href="../_modules/spittalpond/spittalbase.html#SpittalBase.check_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spittalpond.spittalbase.SpittalBase.check_status" title="Permalink to this definition">¶</a></dt>
@@ -273,6 +273,34 @@ specify a schema i.e. <a class="reference external" href="http://">http://</a>, 
 </dd></dl>
 
 <dl class="method">
+<dt id="spittalpond.spittalbase.SpittalBase.prepare_file">
+<tt class="descname">prepare_file</tt><big>(</big><em>data_name</em>, <em>pathname</em>, <em>module_supplier_id</em>, <em>do_timestamps=True</em><big>)</big><a class="reference internal" href="../_modules/spittalpond/spittalbase.html#SpittalBase.prepare_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spittalpond.spittalbase.SpittalBase.prepare_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combines a few webservices for upload a file.</p>
+<dl class="docutils">
+<dt>&#8220;Prepare&#8221; is a term genrally meaning:</dt>
+<dd><ul class="first last simple">
+<li>Creating the file upload and download id&#8217;s.</li>
+<li>And then actually uploading the file.</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data_name</strong> (<em>str</em>) &#8211; name from self.types dictionary.</li>
+<li><strong>pathname</strong> (<em>str</em>) &#8211; path to file to prepare.</li>
+<li><strong>module_supplier_id</strong> (<em>int</em>) &#8211; overall module supplier for uploading.</li>
+<li><strong>do_timestamps</strong> (<em>bool</em>) &#8211; whether to prepend timestamps on upload.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="spittalpond.spittalbase.SpittalBase.queue_task">
 <tt class="descname">queue_task</tt><big>(</big><em>task_name</em><big>)</big><a class="reference internal" href="../_modules/spittalpond/spittalbase.html#SpittalBase.queue_task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#spittalpond.spittalbase.SpittalBase.queue_task" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simple add the specified task in the job queue.</p>
@@ -434,7 +462,7 @@ Therfore we must wait until some jobs are completed.</p>
         <li class="right" >
           <a href="spittalpond.html" title="Spittalpond"
              >previous</a> |</li>
-        <li><a href="../index.html">spitttalpond 0.0.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">spitttalpond 0.1.1 documentation</a> &raquo;</li>
           <li><a href="index.html" >Code Documentation</a> &raquo;</li> 
       </ul>
     </div>
