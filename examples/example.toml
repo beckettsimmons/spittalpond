@@ -10,42 +10,90 @@ log_level = "DEBUG"
 system_config = 1
 
 [login]
+# The default Oasis login credentials.
 user = "root"
 password = "password"
 
 [model]
-name = "My test model"
+# Note that because names are passed via a URL request they *cannot* contain spaces!
+name = "spittalpond_model"
 do_timestamps = true
-key = "Model key"
+key = "modelkey"
 
-# Optionally, set a default upload directory prefix.
-directory_path = "./"
-
+# Set an upload directory prefix. No need to type this for each file.
+directory_path = "C:/OASISVM/upload/OasisTestFiles/"
+  # The standard Oasis reference files, as of R1.3, that can be found in the
+  # members area at <oasislmf.org>.
   [model.dict.areaperil]
-  filename = "MyAreaPerilDict_Oasis.csv"
-  module_supplier_id = 3
+  filename = "MyDictAreaperil_S1.csv"
+  # We must specific the correct module supplier ID (think "file format") for
+  # this file. As we can see this file is using the S1 module supplier. We can
+  # find it's respective ID (if we're using the default MySQL database) by
+  # looking at the SQL table here:
+  # <https://127.0.1.1:12322/index.php?db=oasisdb&table=app_modulesupplier>
+  module_supplier_id = 1
 
   [model.dict.event]
-  filename = "lkj.csv"
+  filename = "MyDictEvent_S1.csv"
+  module_supplier_id = 1
+
+  [model.dict.vuln]
+  filename = "MyDictVuln_S1.csv"
+  module_supplier_id = 1
+
+  [model.dict.hazardintensitybin]
+  filename = "MyDictHazardIntensityBin_OASIS.csv"
   module_supplier_id = 3
 
+  [model.dict.damagebin]
+  filename = "MyDictDamageBin_OASIS.csv"
+  module_supplier_id = 3
+
+  [model.version.vuln]
+  filename = "MyVersionVuln_OASIS.csv"
+  module_supplier_id = 3
+
+  [model.version.hazfp]
+  filename = "MyVersionHazFP_OASIS.csv"
+  module_supplier_id = 3
+
+
 [exposure]
-name = "My test exposure"
+name = "spittalpond_exposure"
 do_timestamps = true
 
-# Optionally, set a default upload directory prefix.
-directory_path = "./"
+# Set an upload directory prefix. No need to type this for each file.
+directory_path = "C:/OASISVM/upload/OasisTestFiles/"
 
+  # The standard Oasis reference files, as of R1.3, that can be found in the
+  # members area at <oasislmf.org>.
   [exposure.dict.exposure]
-  filename = "MyExposureDict.csv"
-  module_supplier_id = 2
+  filename = "MyDictExposure_OASIS.csv"
+  module_supplier_id = 3
 
   [exposure.version.exposure]
-  filepath = "MyExposureVersion.csv"
-  module_supplier_id = 2
+  filename = "MyExposures_OASIS.csv"
+  module_supplier_id = 3
+
+  [exposure.version.correlation]
+  filename = "MyCorrelations_OASIS.csv"
+  module_supplier_id = 3
+
 
 [benchmark]
-name = "my benchmark"
+name = "spittalpond_benchmark"
 chunk_size = 10
 min_chunk = 3
 max_chunk = 10
+
+[gul]
+name = "mygul"
+
+[pubgul]
+name = "mypuglgul"
+# The filename that Oasis assigns it on the Django server in the
+# /var/www/oasis/downloads directory.
+filename = "spittalpond_pubgul.csv"
+# The file path to save the GUL outputs on the computer you are using now!
+output_filepath = "spittalpond_gul_output.csv"
+module_supplier_id = 3
