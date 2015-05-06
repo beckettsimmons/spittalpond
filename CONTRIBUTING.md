@@ -52,16 +52,31 @@ For more information see [here].
 Style
 -----
 
-This project loosely follows the python PEP 8 code style specification. Please
-try to follow this as closely as possible, but of course you are the pragmatic
-programmer so you make the last call and don't follow the spec blindly!
+This project loosely follows the python [PEP 8] code style specification.
+Please try to follow this as closely as possible, but of course you are the
+pragmatic programmer so you make the last call and don't follow the spec
+blindly!
 
-Also, please appropriately document your code. This includes docstrings!
-We use [Google style] docstrings in order to auto-generate code documentation
-with Sphinx. So it's rather important to follow this convention correctly.
+Specifically, from PEP 8 be aware of two things: long lines and whitespace
+- Please follow the maximum line length convention and limit all lines to **79
+  characters**! (80 chars include the, mostly invisible, eol) The only real
+  exception to this it when specifically using literals. i.e.  the URLs at the
+  bottom of this file, Python tracebacks in documentation, etc.
+- Be aware of whitespace. This means both [blank lines] and [inline
+  whitespace]. Nobody likes viewing that unnecessary diff that is mostly
+  someone being liberal with they spacebar... Speaking of which, let's all just
+  use unix line endings as well, cool.
 
-As for commits; make sure that they are logical units with an [appropriate commit
-message]. Always `git diff` before you commit to ensure that everything
+Also, please [appropriately] document your code with any pro-tips and
+divine knowledge; in order to spare us all from having to guess/be
+confused. Specifically please write [docstrings] in such a way that the Python
+`help()` function can be used on it to gather useful, relevant, and concise
+information and pro-tips about the function/class/module! Note that we use
+[Google style] docstrings in order to auto-generate code documentation with
+Sphinx. So it's rather important to follow this convention correctly.
+
+As for commits; make sure that they are logical units with an [appropriate
+commit message]. Always `git diff` before you commit to ensure that everything
 you changed it what you wanted to change! (Extra whitespace likes to hide
 here!)
 
@@ -77,6 +92,11 @@ explicitly involved with them, you can safely ignore these branches.
 
 [Gitflow]: <http://nvie.com/posts/a-successful-git-branching-model/>
 [here]: <https://help.github.com/articles/configuring-a-remote-for-a-fork/>
+[PEP 8]: <https://www.python.org/dev/peps/pep-0008/>
+[blank lines]: <https://www.python.org/dev/peps/pep-0008/#blank-lines>
+[inline whitespace]: <https://www.python.org/dev/peps/pep-0008/#whitespace-in-expressions-and-statements>
+[appropriately]: <http://blog.codinghorror.com/code-tells-you-how-comments-tell-you-why/>
+[docstrings]: <https://www.python.org/dev/peps/pep-0008/#documentation-strings]
 [Google style]: <http://sphinxcontrib-napoleon.readthedocs.org/en/latest/example_google.html>
 [appropriate commit message]: <http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html>
 ["Don't expose your crap."]: <http://www.mail-archive.com/dri-devel@lists.sourceforge.net/msg39091.html>
