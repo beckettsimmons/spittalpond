@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="spittalpond",
-    version="0.1.1",
+    version="0.1.2",
     description="A Python interface for the OasisLMF Django webservices API.",
     url="https://github.com/beckettsimmons/spittalpond",
     author="Beckett Simmons",
