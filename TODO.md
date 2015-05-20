@@ -1,5 +1,4 @@
 Todo List (in priority order):
- - [ ] Update the README.md with a simple summary and setup.
  - [ ] Deprecate/remove old methods in preference to the config interface.
  - [ ] Handle issues for when the Django API returns JSON with success = false.
  - [ ] Get rid of all the hardcoded values in spittalrun. This includes config_ID.
