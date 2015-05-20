@@ -483,13 +483,25 @@ class SpittalBase():
             resp = self.check_status(job_id, config_id)
             logger.debug("Waiting for response " + resp.content)
             job_status = json.loads(resp.content)['status']
-            if job_status == 'done':
+            job_progress = json.loads(resp.content)['progress']
+            if job_progress == "FINISHED":
+                logger.info("Previous, job done! " + resp.content)
+                status = True
+            elif job_status == 'done':
                 logger.info("Previous, job done! " + resp.content)
                 status = True
             # If the job fails stop everything and raise exception.
             elif job_status == "FAILED":
                 raise Exception(
                     "FATAL: Job {num} failed with a response of: {resp}".format(
+                        num=job_id,
+                        resp=resp.content
+                    )
+                )
+            elif job_status == "job dequeued":
+                raise Exception(
+                    "FATAL: Job {num} was dequeued with a response"
+                    "of: {resp}".format(
                         num=job_id,
                         resp=resp.content
                     )

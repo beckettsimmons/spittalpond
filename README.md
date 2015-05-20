@@ -5,7 +5,8 @@ Spittalpond
 What is it?
 -----------
 
-Spittalpond is an Python interface for the Oasis Django API webservices.
+Spittalpond is an Python interface for the Oasis Django API  webservices
+(currently compatible with versions R1.3 and R1.4).
 It acts as a front-end that allows you to run models, exposures and other
 useful webservices in Oasis.
 Effectively, it's turns you Oasis style .csv files into useful GUL data!
@@ -13,22 +14,26 @@ Effectively, it's turns you Oasis style .csv files into useful GUL data!
 Installation
 ------------
 
-You can quickly install this package by downloading the code and running the
-following commands:
+You can quickly install this package by simply `pip install`ing it:
 
 ``` sh
-$ cd path/to/spittalpond
-$ python setup.py install
+$ pip install spittalpond
 ```
 
 Usage
 -----
 
 Spittalpond can be quickly run by using the config interface. Note that you will
-have modify the example.toml (of create your own) TOML configuration file to
+have modify the [example.toml][] (by creating your own) TOML configuration file to
 point to your specific Oasis .csv files and you Oasis server. Then simply use
 that config file as seen here:
 
+```sh
+$ python -m spittalpond.config_interface path/to/my_config.toml
+```
+
+Alternatively, if you have downloaded the Spittalpond code you can run the
+config interface file directly:
 ```sh
 $ cd path/to/spittalpond/
 $ python ./spittalpond/config_interface.py ../examples/example.toml
@@ -39,9 +44,9 @@ Documentation on the config interface can be found [here].
 Dependencies
 ------------
 
-Core Spittalpond depends on the Python [Requests], and [pytoml] packages.
-`pip install` this as necessary (if these dependencies are not automatically
-resolved with the main setup command).
+Spittalpond mainly depends on the Python [Requests], and [pytoml] packages.
+These will be installed automatically when you `pip install` spittalpond.
+If not, you can always manually `pip install` them necessary 
 
 Also, of course, you will need to have [IPython] installed (as well as the
 notebooks part of it) if you intend to view and run the IPython notebook
@@ -49,6 +54,8 @@ examples.
 
 Potential Patches
 -----------------
+
+Note: If you are using Oasis R1.4 then you **do not** need to do this!
 
 As of Oasis version R1.3, the Oasis Django server will need to be patched so
 that Spittalpond will run correctly. Patches will be placed in the
@@ -93,6 +100,8 @@ Documentation
 Documentation is available at
 <http://beckettsimmons.github.io/spittalpond/docs/>
 
+
+[example.toml]: <./examples/example.toml>
 [here]: <http://beckettsimmons.github.io/spittalpond/docs/usage/config_interface.html>
 [Requests]: <http://docs.python-requests.org/en/latest/>
 [pytoml]: <https://github.com/avakar/pytoml>
