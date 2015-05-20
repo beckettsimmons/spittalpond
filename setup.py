@@ -8,6 +8,6 @@ setup(
     author="Beckett Simmons",
     author_email="beckettsimmons@hotmail.com",
     packages=["spittalpond"],
-    install_requires=["requests"],
+    install_requires=["requests", "pytoml"],
     zip_safe=False
 )
