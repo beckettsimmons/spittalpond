@@ -1,6 +1,8 @@
 import argparse
 import os
 import logging
+import time
+import datetime
 
 import pytoml
 import spittalpond
@@ -172,6 +174,7 @@ def run_exposure(spittal_instance, config):
 def runner(config_file):
     """ Parse config file and makes the appropriate Oasis API call as needed."""
 
+    start_time = time.time()
     # Load the config file into a toml object.
     with open(args.config_file, 'rb') as f:
         config = pytoml.load(f)
@@ -224,20 +227,25 @@ def runner(config_file):
         print "Saved Published GUL output to {filepath}.".format(
             filepath=config['pubgul']['output_filepath']
         )
+
+    seconds_elapsed = time.time() - start_time
+    print "Time taken to run config: {time_elapsed} ".format(
+        time_elapsed=datetime.timedelta(seconds=seconds_elapsed)
+    )
     return spit
 
 
 if __name__ == "__main__":
     # Grab the first argument passed. This is the file name.
     parser = argparse.ArgumentParser(
-        description="Makes Oasis API calls according to the toml config file \
+        description="Makes Oasis API calls according to the TOML config file \
                      specified."
         )
     parser.add_argument(
         "config_file",
         metavar="file",
         type=str,
-        help="an integer for the accumulator"
+        help="the path to the TOML config file for Spittalpond to run."
     )
     args = parser.parse_args()
 
