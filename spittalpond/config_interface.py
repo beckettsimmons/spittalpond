@@ -176,7 +176,7 @@ def runner(config_file):
 
     start_time = time.time()
     # Load the config file into a toml object.
-    with open(args.config_file, 'rb') as f:
+    with open(config_file, 'rb') as f:
         config = pytoml.load(f)
 
     verify_config(config)

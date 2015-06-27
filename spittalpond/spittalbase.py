@@ -456,30 +456,33 @@ class SpittalBase():
         print("Loaded model")
 
 
-    # Job related methods below.
-    # TODO: Appropriately name this method.
-    def wait_until_done(self, job_id, config_id=1,
-                            wait_time=5, max_iters=50, init_wait_time=0):
+    def wait_until_done(self, job_id, status_check_interval, timeout,
+                        init_wait_time=0, config_id=1):
         """ Waits until the specified job is complete.
 
-        This is used because some jobs depends on others.
+        This is used because some jobs depend on others.
         Therfore we must wait until some jobs are completed.
 
         Args:
             job_id (int): ID of the job to wait for.
-            config_id (int, optional): config that the job was created with.
-            wait_time (int, optional): seconds to wait between each check.
-            max_iters (int, optional): max iterations before raising exception.
+            status_check_interval (int, optional): seconds to wait between each
+                async status check.
+            timeout (int, optional): seconds to wait before timing out and
+                raising an exception. If set to 0 there will be no timeout.
+                Default value is 0.
             init_wait_time (int, optional): seconds to initially wait.
+            config_id (int, optional): config that the job was created with.
 
         Returns:
             None
         """
         status = False
-        i= 0
+        i = 0
+        start_seconds = time.time()
         time.sleep(init_wait_time)
+        timed_out = False
         # Do until job finishes or max iters is reached.
-        while status == False and i < max_iters:
+        while status == False and timed_out == False:
             resp = self.check_status(job_id, config_id)
             logger.debug("Waiting for response " + resp.content)
             job_status = json.loads(resp.content)['status']
@@ -507,16 +510,21 @@ class SpittalBase():
                     )
                 )
             i += 1
-            time.sleep(wait_time)
-        # If we hit max iterations.
+            time.sleep(status_check_interval)
+
+            # Only calculate if timeout isn't 0 (disabled).
+            if timeout is not 0:
+                timed_out = (time.time() - start_seconds) > timeout
+        # If we hit the task timeout.
         if status == False:
             raise Exception(
-                "Task Load Timeout!\nTry setting a longer wait time"
+                ("Job Load Timeout!\n"
+                 "Job {job_id} timed-out after {timeout} seconds "
+                 "before finishing. "
+                 "Try setting a longer timeout time."
+                ).format(job_id=job_id, timeout=timeout)
             )
-        # TODO: Maybe report some time stats once done.
 
-
-    # TODO: Rename to queue_all_tasks.
     def queue_task(self, task_name):
         """ Simple add the specified task in the job queue.
 
@@ -535,20 +543,20 @@ class SpittalBase():
             task_response.content
         )
 
-    def do_job(self, task_name, wait_time=2, max_iters=100):
+    def do_job(self, task_name, status_check_interval=0.001, timeout=0):
         """ Wait until the job has been done on the job queue. """
         self.queue_task(task_name)
         self.wait_until_done(
             self.data_dict[task_name]['job_id'],
-            wait_time=wait_time,
-            max_iters=max_iters
+            status_check_interval=status_check_interval,
+            timeout=timeout
         )
 
-    def do_jobs(self, job_list,  wait_time=2, max_iters=100):
+    def do_jobs(self, job_list,  status_check_interval=0.001, timeout=0):
         """ Do all dependant jobs in the given list. """
         for task_name in job_list:
             self.do_job(
                 task_name,
-                wait_time=wait_time,
-                max_iters=max_iters
+                status_check_interval=status_check_interval,
+                timeout=timeout
             )
