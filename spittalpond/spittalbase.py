@@ -560,3 +560,24 @@ class SpittalBase():
                 status_check_interval=status_check_interval,
                 timeout=timeout
             )
+
+    def easy_request(self, *args):
+        """ Formats arguments passed into URL and makes the http request.
+
+        Also prepends the base URL and a "/oasis/" so that all the users have
+        to pass is just the strings that would otherwise be separated by
+        slashes (/).
+
+        Args:
+            args (string list): List of strings to format into URL.
+
+        Returns:
+            HttpResponse: server's response
+        """
+        response = self.do_request(
+            self.base_url +
+            "/oasis/" +
+            "/".join(map(str, args)) +
+            "/"
+        )
+        return response
