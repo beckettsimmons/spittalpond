@@ -70,7 +70,11 @@ def verify_config(config):
     if 'model' in config.keys():
         prefix = "FATAL:"
         suffix = "not specified in the model section!"
-        validate_upload_sections(config['model'], prefix, suffix)
+        # If user wants to select keys manually, else...
+        if 'select_manually' in config['model'].keys():
+            pass
+        else:
+            validate_upload_sections(config['model'], prefix, suffix)
 
     if 'exposure' in config.keys():
         prefix = "FATAL:"
@@ -192,7 +196,11 @@ def runner(config_file):
     spit.model.do_login(config['login']['password'])
 
     if 'model' in config.keys():
-        run_model(spit, config)
+        # If user wants to select keys manually, else...
+        if 'select_manually' in config['model'].keys():
+            spit.model.select_manually()
+        else:
+            run_model(spit, config)
 
     if 'exposure' in config.keys():
         # TODO: We shouldn't have to log in twice. Instead share cookies.

@@ -581,3 +581,43 @@ class SpittalBase():
             "/"
         )
         return response
+
+    def select_type(self, type_):
+        """ Provides interface to select "type objects" on the Oasis server.
+
+        This is mainly useful for the purpose of selecting a model for use with custom
+        exposures. It is such a trivial task once we consider that an Oasis model
+        consists of 5 or so different dictionaries and we must find the IDs for each
+        one in order to create GUL results with manual exposures.
+
+        Args:
+            type_ (string):
+
+        Return:
+            int: The ID of the selected type object.
+        """
+        # Display a list of the Oasis objects.
+        response = self.easy_request("list" + self.types[type_])
+        type_list = json.loads(response.content)
+        print "Please choose a {type} from the list below: ".format(
+            type=self.types[type_]
+        )
+        for line in type_list:
+            read_status = "Readable" if line['canRead'] else "Unreadable"
+            job_status = "Successfully Ran" if line['success'] else "Failed Run"
+            print line['optionValue'] + " " + line['optionDisplay'] +\
+                "  Details: " + job_status + " and " + read_status
+
+        # Ask user to select a displayed option, repeat until a valid option is
+        # given.
+        option = None
+        options = map(lambda x: str(x['optionValue']), type_list) 
+        while True:
+            option = raw_input("What number? ")
+            if option in options:
+                break
+            else:
+                print ("Invalid number was selected. Please input a number that is "
+                        "displayed above."
+                      )
+        return option
