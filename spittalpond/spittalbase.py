@@ -5,6 +5,9 @@ import time
 import os
 import logging
 
+# FIXME: Turning off SSL unverified warnings probably isn't the best idea.
+requests.packages.urllib3.disable_warnings()
+
 logger = logging.getLogger('spittalpond')
 
 class SpittalBase():
@@ -86,7 +89,8 @@ class SpittalBase():
             url_string,
             data=in_data,
             files=in_file_dict,
-            cookies=self.cookies  #For Authentication!
+            cookies=self.cookies,  #For Authentication!
+            verify=False
         )
         return response
 
@@ -552,7 +556,7 @@ class SpittalBase():
             timeout=timeout
         )
 
-    def do_jobs(self, job_list,  status_check_interval=0.001, timeout=0):
+    def do_jobs(self, job_list,  status_check_interval=1, timeout=0):
         """ Do all dependant jobs in the given list. """
         for task_name in job_list:
             self.do_job(
