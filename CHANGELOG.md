@@ -1,6 +1,13 @@
 Changelog
 =========
 
+[0.1.3] - 2015-07-15
+--------------------
+- **Added** HTTPS SSL support for the Oasis R1.5 release.
+- **Added** a manual model selection feature for preloaded models.
+- **Added** a primitive timer to the config interface.
+- **Changed** the job timeout functionality. Now we just use a simple timeout.
+
 [0.1.2] - 2015-05-19
 ------------
 - **Added** compatibility with the latest Oasis R1.4 release.
