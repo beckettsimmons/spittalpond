@@ -318,7 +318,7 @@ class SpittalRun(SpittalBase):
             'kernel_gul',
             'kernel_pubgul',
         ]
-        self.do_jobs(jobs_to_do, wait_time=1)
+        self.do_jobs(jobs_to_do, status_check_interval=1)
         # This has to be done like at the very last!!
         # self.load_models()
 
@@ -333,7 +333,7 @@ class SpittalRun(SpittalBase):
         logger.info("Save pub GUL response " + response1.content)
 
         # Do the pubgul task again.
-        self.do_jobs(["kernel_pubgul"], wait_time=1)
+        self.do_jobs(["kernel_pubgul"], status_check_interval=1)
 
         # Actually download the file.
         resp = self.download_file(

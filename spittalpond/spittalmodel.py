@@ -133,3 +133,29 @@ class SpittalModel(SpittalBase):
                 'version_vuln'
             ]
         )
+
+
+    def select_manually(self):
+        """ Alow user to select the necassary parts of the model manually.
+
+        This is an alternative way of populting the data_dict (as opposed to
+        use the config interface).
+
+        """
+        types_to_ask_for = [
+            "dict_areaperil",
+            "dict_event",
+            "dict_vuln",
+            "dict_damagebin",
+            "dict_hazardintensitybin",
+            "version_vuln",
+            "version_hazfp"
+        ]
+        for type_name in types_to_ask_for:
+            type_id = self.select_type(type_name)
+            # TODO: Probably not the best to reset the dictionary here... But
+            # works for now.
+            self.data_dict[type_name] = {}
+            self.data_dict[type_name]['taskId'] = type_id
+
+        print self.data_dict
